@@ -1,6 +1,8 @@
 import express from "express";
+import dotenv from "dotenv";
 import prodeuctRouter from "./routes/route.js";
 import mongoose from "mongoose";
+dotenv.config();
 
 
 
@@ -9,7 +11,11 @@ const port = 3000
 
 app.set("view engine", "ejs");
 app.use("/api/employees", prodeuctRouter);
-mongoose.connect('mongodb://localhost:27017/newweb');
+app.get("/", (req, res) => {
+  res.send({name:"anas"});
+});
+
+mongoose.connect(process.env.MONGODB_URL );
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

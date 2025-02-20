@@ -18,7 +18,7 @@ export const genarate = async (req, res) => {
     let isDoneIndex = Math.floor(Math.random() * isDoneOptions.length);
   
     // Check if an employee with the same name exists
-    const oldemployee = await User.findOne({ name: names[nameIndex],desc:descs[descIndex],isDone:isDoneOptions[isDoneIndex] });
+    const oldemployee = await User.findOne({ name: names[nameIndex],isDone:isDoneOptions[isDoneIndex] });
   
     if (oldemployee) {
       console.log("Already exists:", oldemployee);
