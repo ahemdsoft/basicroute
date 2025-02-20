@@ -58,6 +58,7 @@
         create
       </button>
       <button type="button" onclick="yourFunction()" class="btn btn-warning">delete</button>
+      <button type="button" onclick="findfunction()" class="btn btn-warning">find</button>
       <h1 id="myHeading" >hi</h1>
     </div>
     <script
@@ -72,12 +73,27 @@
         let a = await fetch("/api/employees/genarate");
         r = await a.json();
         console.log(r);document.getElementById("myHeading").textContent = JSON.stringify(r,null,2) ;
+        r.map((item) => {
+          document.getElementById("myHeading").textContent = JSON.stringify(item,null,2) ;
+        });
       }
       async function yourFunction(params) {
         
         let b=await fetch("/api/employees/delete")
-        console.log(r);document.getElementById("myHeading").textContent = r ;
+        console.log(r);document.getElementById("myHeading").innerHTML =` <h1>${JSON.stringify("deleted")}</h1>` ;
         console.log("deleted")
+      }
+      async function findfunction(params){
+        try{
+        let c=await fetch("/api/employees/find")
+        let d=await c.json()
+        document.getElementById("myHeading").innerHTML=`<h1>${JSON.stringify(d,null,2)}</h1>`;
+        console.log(d);
+        }
+        catch(error){
+          console.log("fucking error",error)
+          document.getElementById("myheading").innerHTML=`<h1>${error}</h1>`  
+        }
       }
 
 

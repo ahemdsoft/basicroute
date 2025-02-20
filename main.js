@@ -14,8 +14,12 @@ app.use("/api/employees", prodeuctRouter);
 app.get("/", (req, res) => {
   res.send({name:"anas"});
 });
+try {
+  mongoose.connect(process.env.MONGODB_URL );
+} catch (error) {
+  res.send(error);
+}
 
-mongoose.connect(process.env.MONGODB_URL );
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
