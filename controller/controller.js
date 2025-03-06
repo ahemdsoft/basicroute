@@ -1,4 +1,4 @@
-import { User } from "../models/user.js";
+import {pasport} from "../database/database.js";
 
 export const homepage = (req, res) => {
   res.render("index", {
@@ -8,7 +8,7 @@ export const homepage = (req, res) => {
 let i = 1;
 
 export const genarate = async (req, res) => {
-  const id1 = await User.findOne({ ide: 1 });
+  const id1 = await pasport.findOne({ ide: 1 });
   if (!id1) {
     i = 1;
   }
@@ -46,7 +46,7 @@ export const genarate = async (req, res) => {
     let isDoneIndex = Math.floor(Math.random() * isDoneOptions.length);
 
     // Check if an employee with the same name exists
-    const oldemployee = await User.findOne({
+    const oldemployee = await pasport.findOne({
       name: names[nameIndex],
       desc: descs[descIndex],
       isDone: isDoneOptions[isDoneIndex],
@@ -59,7 +59,7 @@ export const genarate = async (req, res) => {
         employee: oldemployee,
       });
     } else {
-      const employee = await User.create({
+      const employee = await pasport.create({
         ide: i,
         name: names[nameIndex],
         desc: descs[descIndex],
@@ -79,7 +79,7 @@ export const genarate = async (req, res) => {
 
 export const find = async (req, res) => {
   let user;
-  user = await User.find(req.query).sort("isdone");
+  user = await pasport.find(req.query).sort("isdone");
   if (user) {
     return res.json({ user });
   } else {
@@ -90,7 +90,7 @@ export const find = async (req, res) => {
 
 export const find2 = async (req, res) => {
   let user;
-  user = await User.find(req.query).select("name").sort("name");
+  user = await pasport.find(req.query).select("name").sort("name");
   if (user) {
     return res.json({ user });
   } else {
@@ -101,10 +101,15 @@ export const find2 = async (req, res) => {
 
 export const del = async (req, res) => {
   for (let i = 1; i < 11; i++) {
-    const employee = await User.deleteMany({});
+    const employee = await pasport.deleteMany({});
 
     console.log("deleted ");
   }
 
   res.send("deleted");
 };
+export const  reg= async (req, res) => {
+  res.status(200).json({ message: "register" });
+  res.send("register");
+}
+
